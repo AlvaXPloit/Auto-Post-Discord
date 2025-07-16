@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auto Poster Discord By - AlvaXPloit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Share Tech Mono', monospace;
+      background-color: #0e0e0e;
+      color: #ccc;
+      margin: 0;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffc3;
+      margin-bottom: 40px;
+      text-shadow: 0 0 10px #00ffc3;
+    }
+
+    .section {
+      background-color: #1c1c1c;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 10px;
+      border: 1px solid #333;
+      max-width: 600px;
+      box-shadow: 0 0 10px #000;
+    }
+
+    .section-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #fff;
+      border-left: 3px solid #00ffc3;
+      padding-left: 10px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      background-color: #222;
+      color: #00ffc3;
+      border: 1px solid #444;
+      border-radius: 5px;
+      margin: 5px 0 15px 0;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    button {
+      background-color: #00ffc3;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #00cba3;
+    }
+
+    .button-danger {
+      background-color: #ff4d4d;
+    }
+
+    .button-danger:hover {
+      background-color: #ff1a1a;
+    }
+
+    pre {
+      background-color: #111;
+      padding: 10px;
+      color: #ccc;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+
+    .center {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Auto Poster by AlvaXPloit 🖤</h1>
+
+  <form method="POST" action="/panel">
+    <div class="section">
+      <div class="section-title">Discord Token Settings</div>
+      <input type="password" name="token" placeholder="Discord Bot/User Token" id="tokenInput" value="{{ config.get('token', '') }}">
+      <label><input type="checkbox" onclick="toggleToken()"> Show Token</label>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Post Settings</div>
+      <input type="text" name="channel_id" placeholder="Channel ID">
+      <textarea name="message" placeholder="Your Message Here..."></textarea>
+      <label>Interval:</label><br>
+      <input type="number" name="hours" placeholder="Hours" min="0">
+      <input type="number" name="minutes" placeholder="Minutes" min="0">
+      <input type="number" name="seconds" placeholder="Seconds" min="0"><br>
+      <button type="submit" name="action" value="add">Add Channel</button>
+      <button type="submit" name="action" value="edit">Edit Channel</button>
+      <button type="submit" name="action" value="remove" class="button-danger">Remove Channel</button>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Webhook Settings</div>
+      <label><input type="checkbox" name="use_webhook" {% if config.get('use_webhook') %}checked{% endif %}> Use Webhook</label>
+      <input type="text" name="webhook_url" placeholder="Webhook URL" value="{{ config.get('webhook_url', '') }}">
+      <button type="submit" name="action" value="test_webhook">Test Webhook</button>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Webhook Logging (Optional)</div>
+      <input type="text" name="log_webhook" placeholder="Log Webhook URL" value="{{ config.get('log_webhook', '') }}">
+    </div>
+
+    <div class="section">
+      <div class="section-title">Current Config</div>
+      <pre>{{ config_json }}</pre>
+      <button type="submit" name="action" value="load">Load Config</button>
+      <button type="submit" name="action" value="save">Save Config</button>
+    </div>
+
+    <div class="center">
+      <button type="submit" name="action" value="start" style="background-color: #00e676;">Start Auto Post</button>
+      <button type="submit" name="action" value="stop" class="button-danger">Stop Auto Post</button>
+    </div>
+  </form>
+
+  <script>
+    function toggleToken() {
+      const x = document.getElementById("tokenInput");
+      x.type = x.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>

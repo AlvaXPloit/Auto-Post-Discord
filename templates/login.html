@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ 'Register Auto Post Discord' if mode == 'register' else 'Login Auto Post Discord' }} - AlvaXPloit</title>
+  <style>
+    body {
+      background: #111;
+      color: #00ffc3;
+      font-family: 'Share Tech Mono', monospace;
+      text-align: center;
+      padding-top: 100px;
+    }
+    input {
+      padding: 10px;
+      width: 300px;
+      margin: 10px;
+      background: #222;
+      border: 1px solid #333;
+      color: #00ffc3;
+    }
+    button {
+      padding: 10px 20px;
+      background: #00ffc3;
+      border: none;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>{{ 'Register' if mode == 'register' else 'Login' }} - AlvaXPloit</h1>
+  <form method="POST">
+    <input name="username" placeholder="Username" required><br>
+    <input name="password" type="password" placeholder="Password" required><br>
+    <button type="submit">{{ 'Register' if mode == 'register' else 'Login' }}</button>
+  </form>
+  {% if not mode %}
+    <p><a href="/register">Belum punya akun? Daftar di sini</a></p>
+  {% else %}
+    <p><a href="/">Sudah punya akun? Login di sini</a></p>
+  {% endif %}
+</body>
+</html>
